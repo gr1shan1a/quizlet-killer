@@ -10,8 +10,8 @@ function text(block) {
 
 function columns(block) {
     // но есть map -> трансформирует сразу
-    const html = block.value.map(item => col(item))
-    return row(html.join(''))
+    const html = block.value.map(col).join('')
+    return row(html)
 }
 
 function image(block) {

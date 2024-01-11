@@ -172,10 +172,8 @@ function text(block) {
 }
 function columns(block) {
   // но есть map -> трансформирует сразу
-  var html = block.value.map(function (item) {
-    return (0, _utils.col)(item);
-  });
-  return (0, _utils.row)(html.join(''));
+  var html = block.value.map(_utils.col).join('');
+  return (0, _utils.row)(html);
 }
 function image(block) {
   return (0, _utils.row)("<img src=\"".concat(block.value, "\" />"));
@@ -292,7 +290,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59700" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60016" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
