@@ -1,21 +1,27 @@
-import {row, col} from './utils'
+// больше не нужен
+
+import {row, col, css} from './utils'
 
 function title(block) {
-    return row(col(`<h1>${block.value}</h1>`))
+    // const tag = block.options.tag ?? 'h1'
+    // const styles = block.options.styles
+    const {tag = 'h1', styles} = block.options
+    return row(col(`<${tag}>${block.value}</${tag}>`), css(styles))
 }
 
 function text(block) {
-    return row(col(`<p>${block.value}</p>`))
+    return row(col(`<p>${block.value}</p>`), css(block.options.styles))
 }
 
 function columns(block) {
     // но есть map -> трансформирует сразу
     const html = block.value.map(col).join('')
-    return row(html)
+    return row(html, css(block.options.styles))
 }
 
 function image(block) {
-    return row(`<img src="${block.value}" />`)
+    const {imageStyles: is, alt ='', styles} = block.options
+    return row(`<img src="${block.value}" alt="${alt}" style="${css(is)}"/>`, css(styles))
 }
 
 export const templates = {

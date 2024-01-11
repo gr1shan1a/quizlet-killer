@@ -119,7 +119,137 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"assets/image.png":[function(require,module,exports) {
 module.exports = "/image.90ac9039.png";
-},{}],"model.js":[function(require,module,exports) {
+},{}],"utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.block = block;
+exports.col = col;
+exports.css = css;
+exports.row = row;
+function row(content) {
+  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  return "<div class=\"row\" style=\"".concat(styles, "\">").concat(content, "</div>");
+}
+function col(content) {
+  return "<div class=\"col-sm\">".concat(content, "</div>");
+}
+function css() {
+  var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  if (typeof styles === 'string') return styles;
+  var toString = function toString(key) {
+    return "".concat(key, ": ").concat(styles[key]);
+  };
+  return Object.keys(styles).map(toString).join(';');
+}
+function block(type) {
+  return "\n        <form name=\"".concat(type, "\">\n            <h5>").concat(type, "</h5>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"value\" placeholder=\"value\">\n            </div>\n            <div class=\"form-group\">\n                <input class=\"form-control form-control-sm\" name=\"styles\" placeholder=\"styles\">\n            </div>\n             <button type=\"submit\" class=\"btn btn-primary btn-sm\">\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C</button>   \n        </form>  \n        <hr />\n            ");
+}
+},{}],"classes/blocks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TitleBlock = exports.TextBlock = exports.ImageBlock = exports.ColumnsBlock = void 0;
+var _utils = require("../utils");
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var Block = /*#__PURE__*/function () {
+  function Block(value, options) {
+    _classCallCheck(this, Block);
+    // this.type = type
+    this.value = value;
+    this.options = options;
+  }
+  _createClass(Block, [{
+    key: "toHTML",
+    value: function toHTML() {
+      throw new Error('Метод toHTML должен быть реализован обязательно');
+    }
+  }]);
+  return Block;
+}();
+var TitleBlock = exports.TitleBlock = /*#__PURE__*/function (_Block) {
+  _inherits(TitleBlock, _Block);
+  function TitleBlock(value, options) {
+    _classCallCheck(this, TitleBlock);
+    return _callSuper(this, TitleBlock, [value, options]);
+  }
+  _createClass(TitleBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var _this$options = this.options,
+        _this$options$tag = _this$options.tag,
+        tag = _this$options$tag === void 0 ? 'h1' : _this$options$tag,
+        styles = _this$options.styles;
+      return (0, _utils.row)((0, _utils.col)("<".concat(tag, ">").concat(this.value, "</").concat(tag, ">")), (0, _utils.css)(styles));
+    }
+  }]);
+  return TitleBlock;
+}(Block);
+var ImageBlock = exports.ImageBlock = /*#__PURE__*/function (_Block2) {
+  _inherits(ImageBlock, _Block2);
+  function ImageBlock(value, options) {
+    _classCallCheck(this, ImageBlock);
+    return _callSuper(this, ImageBlock, [value, options]);
+  }
+  _createClass(ImageBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var _this$options2 = this.options,
+        is = _this$options2.imageStyles,
+        _this$options2$alt = _this$options2.alt,
+        alt = _this$options2$alt === void 0 ? '' : _this$options2$alt,
+        styles = _this$options2.styles;
+      return (0, _utils.row)("<img src=\"".concat(this.value, "\" alt=\"").concat(alt, "\" style=\"").concat((0, _utils.css)(is), "\"/>"), (0, _utils.css)(styles));
+    }
+  }]);
+  return ImageBlock;
+}(Block);
+var ColumnsBlock = exports.ColumnsBlock = /*#__PURE__*/function (_Block3) {
+  _inherits(ColumnsBlock, _Block3);
+  function ColumnsBlock(value, options) {
+    _classCallCheck(this, ColumnsBlock);
+    return _callSuper(this, ColumnsBlock, [value, options]);
+  }
+  _createClass(ColumnsBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      var html = this.value.map(_utils.col).join('');
+      return (0, _utils.row)(html, (0, _utils.css)(this.options.styles));
+    }
+  }]);
+  return ColumnsBlock;
+}(Block);
+var TextBlock = exports.TextBlock = /*#__PURE__*/function (_Block4) {
+  _inherits(TextBlock, _Block4);
+  function TextBlock(value, options) {
+    _classCallCheck(this, TextBlock);
+    return _callSuper(this, TextBlock, [value, options]);
+  }
+  _createClass(TextBlock, [{
+    key: "toHTML",
+    value: function toHTML() {
+      return (0, _utils.row)((0, _utils.col)("<p>".concat(this.value, "</p>")), (0, _utils.css)(this.options.styles));
+    }
+  }]);
+  return TextBlock;
+}(Block);
+},{"../utils":"utils.js"}],"model.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -127,64 +257,46 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.model = void 0;
 var _image = _interopRequireDefault(require("./assets/image.png"));
+var _blocks = require("./classes/blocks");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var model = exports.model = [{
-  type: 'title',
-  value: 'Hello world from JS!!!'
-}, {
-  type: 'text',
-  value: 'here we go with some text'
-}, {
-  type: 'columns',
-  value: ['11111111', '22222222', '33333333', '44444444']
-}, {
-  type: 'image',
-  value: _image.default
-} // '.assets/image.png'
-];
-},{"./assets/image.png":"assets/image.png"}],"utils.js":[function(require,module,exports) {
-"use strict";
+var text = "\n\u0412\u0441\u0435\u043C \u043F\u0440\u0438\u0432\u0435\u0442, \u0421 \u0412\u0430\u043C\u0438 <a href=\"https://www.youtube.com/watch?v=tneGZ6hM76c\" target=\"_blank\">\u0413\u0440\u0443\u0448\u0430\n";
+var model = exports.model = [new _blocks.TitleBlock('Quizlet-Killer', {
+  tag: 'h2',
+  styles: {
+    background: 'linear-gradient(to right, #ff0099, #493240)',
+    color: '#fff',
+    'text-align': 'center',
+    padding: '1.5rem'
+  }
+}), new _blocks.ImageBlock(_image.default, {
+  styles: {
+    padding: '2rem 0',
+    display: 'flex',
+    'justify-content': 'center'
+  },
+  imageStyles: {
+    width: '500px',
+    height: 'auto'
+  },
+  alt: 'Its a picture'
+}),
+// '.assets/image.png'
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.col = col;
-exports.row = row;
-function row(content) {
-  return "<div class=\"row\">".concat(content, "</div>");
-}
-function col(content) {
-  return "<div class=\"col-sm\">".concat(content, "</div>");
-}
-},{}],"templates.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.templates = void 0;
-var _utils = require("./utils");
-function title(block) {
-  return (0, _utils.row)((0, _utils.col)("<h1>".concat(block.value, "</h1>")));
-}
-function text(block) {
-  return (0, _utils.row)((0, _utils.col)("<p>".concat(block.value, "</p>")));
-}
-function columns(block) {
-  // но есть map -> трансформирует сразу
-  var html = block.value.map(_utils.col).join('');
-  return (0, _utils.row)(html);
-}
-function image(block) {
-  return (0, _utils.row)("<img src=\"".concat(block.value, "\" />"));
-}
-var templates = exports.templates = {
-  title: title,
-  text: text,
-  image: image,
-  columns: columns
-};
-},{"./utils":"utils.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+new _blocks.ColumnsBlock(['посмотреть свои курсы', 'создать тест', 'мои тесты', 'написать в поддержку'], {
+  styles: {
+    background: 'linear-gradient(to bottom, #8e2de2, #4a00e0)',
+    padding: '2rem',
+    color: '#fff',
+    'font-weight': 'bold'
+  }
+}), new _blocks.TextBlock(text, {
+  styles: {
+    background: 'linear-gradient(to left, #f2994a, #34e512)',
+    padding: '1rem',
+    'font-weight': 'bold'
+  }
+})];
+},{"./assets/image.png":"assets/image.png","./classes/blocks":"classes/blocks.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
   if (!bundleURL) {
@@ -239,33 +351,111 @@ module.exports = reloadCSS;
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"classes/site.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Site = void 0;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var Site = exports.Site = /*#__PURE__*/function () {
+  function Site(selector) {
+    _classCallCheck(this, Site);
+    this.$el = document.querySelector(selector);
+  }
+  _createClass(Site, [{
+    key: "render",
+    value: function render(model) {
+      var _this = this;
+      this.$el.innerHTML = '';
+      model.forEach(function (block) {
+        if (block.toHTML()) {
+          _this.$el.insertAdjacentHTML('beforeend', block.toHTML());
+        }
+      });
+    }
+  }]);
+  return Site;
+}();
+},{}],"classes/SideBar.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.SideBar = void 0;
+var _utils = require("../utils");
+var _blocks = require("./blocks");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var SideBar = exports.SideBar = /*#__PURE__*/function () {
+  function SideBar(selector, updateCallBack) {
+    _classCallCheck(this, SideBar);
+    this.$el = document.querySelector(selector);
+    this.update = updateCallBack;
+    this.init();
+  }
+  _createClass(SideBar, [{
+    key: "init",
+    value: function init() {
+      this.$el.insertAdjacentHTML('afterbegin', this.template);
+      this.$el.addEventListener('submit', this.add.bind(this)); // привязать контекст
+    }
+  }, {
+    key: "template",
+    get: function get() {
+      // шаблон
+      return [(0, _utils.block)('text'), (0, _utils.block)('title')].join('');
+    }
+  }, {
+    key: "add",
+    value: function add(event) {
+      event.preventDefault();
+      var type = event.target.name;
+      var value = event.target.value.value;
+      var styles = event.target.styles.value;
+
+      // debugger
+
+      var newBlock = type === 'text' ? new _blocks.TextBlock(value, {
+        styles: styles
+      }) : new _blocks.TitleBlock(value, {
+        styles: styles
+      });
+      this.update(newBlock);
+      event.target.value.value = '';
+      event.target.styles.value = '';
+    }
+  }]);
+  return SideBar;
+}();
+},{"../utils":"utils.js","./blocks":"classes/blocks.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _model = require("./model");
-var _templates = require("./templates");
 require("./styles/main.css");
-var $site = document.querySelector('#site'); // from DOM JQuery selector
+var _site = require("./classes/site");
+var _SideBar = require("./classes/SideBar");
+var site = new _site.Site('#site'); // dom model
 
-_model.model.forEach(function (block) {
-  var toHTML = _templates.templates[block.type];
-  if (toHTML) {
-    $site.insertAdjacentHTML('beforeend', toHTML(block));
-  }
-});
+site.render(_model.model); // html -> dom-tree
 
-/*
-dolgo
-let html = ''
-    block.value.forEach(item => {
-        html += `
-        <div class="col-sm">
-            ${item}
-        </div>
-        `
-    })
-* */
-},{"./model":"model.js","./templates":"templates.js","./styles/main.css":"styles/main.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var updateCallBack = function updateCallBack(newBlock) {
+  _model.model.push(newBlock);
+  site.render(_model.model);
+};
+var Sidebar = new _SideBar.SideBar('#panel', updateCallBack);
+},{"./model":"model.js","./styles/main.css":"styles/main.css","./classes/site":"classes/site.js","./classes/SideBar":"classes/SideBar.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

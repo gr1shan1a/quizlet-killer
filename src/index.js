@@ -1,31 +1,15 @@
 import {model} from './model'
-import {templates} from './templates'
 import './styles/main.css'
+import {Site} from './classes/site'
+import {SideBar} from './classes/SideBar'
 
+const site = new Site('#site') // dom model
 
-const $site = document.querySelector('#site') // from DOM JQuery selector
+site.render(model) // html -> dom-tree
 
-model.forEach(block => {
+const updateCallBack = newBlock => {
+    model.push(newBlock)
+    site.render(model)
+}
 
-
-    const toHTML = templates[block.type]
-    if (toHTML) {
-        $site.insertAdjacentHTML('beforeend', toHTML(block))
-    }
-})
-
-
-
-
-
-/*
-dolgo
-let html = ''
-    block.value.forEach(item => {
-        html += `
-        <div class="col-sm">
-            ${item}
-        </div>
-        `
-    })
-* */
+const Sidebar = new SideBar('#panel', updateCallBack)
