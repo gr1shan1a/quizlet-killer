@@ -4,7 +4,7 @@ export class Site {
     }
 
     render(model) {
-        this.$el.innerHTML = ''
+        const toHTML = ''
         model.forEach(block => {
 
         if (block.toHTML()) {

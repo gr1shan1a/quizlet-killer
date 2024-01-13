@@ -6,6 +6,10 @@ export function col(content) {
     return `<div class="col-sm">${content}</div>`
 }
 
+export function link(content) {
+    return `<div class="col-sm"><a href = "#">${content}</div>`
+}
+
 export function css(styles = {}) {
     if (typeof(styles) === 'string')
     return styles

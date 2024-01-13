@@ -1,4 +1,4 @@
-import {col, css, row} from "../utils";
+import {col, css, row, link} from "../utils";
 
 class Block {
     constructor(value, options) {
@@ -41,7 +41,7 @@ export class ColumnsBlock extends Block {
     }
 
     toHTML() {
-        const html = this.value.map(col).join('')
+        const html = this.value.map(link).join('')
         return row(html, css(this.options.styles))
     }
 
@@ -57,3 +57,29 @@ export class TextBlock extends Block {
     }
 
 }
+
+export class addCardBlock extends Block {
+    constructor(value, options) {
+        super(value, options);
+    }
+
+    toHTML() {
+        return `
+            <div id="quiz-container">
+                <h1>Quizlet-like Website</h1>
+            
+                <!-- Form to add a new course -->
+                <form id="course-form">
+                    <label for="course-name">Course Name:</label>
+                    <input type="text" id="course-name" required>
+                    <button type="button" onclick="addCourse()">Add Course</button>
+                </form>
+            
+                <!-- Card container for displaying cards -->
+                <div id="card-container"></div>
+            </div>
+        `
+    }
+
+}
+

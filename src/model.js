@@ -1,5 +1,5 @@
 import image from './assets/image.png'
-import {TitleBlock, ImageBlock, ColumnsBlock, TextBlock} from './classes/blocks'
+import {TitleBlock, ImageBlock, ColumnsBlock, TextBlock, addCardBlock} from './classes/blocks'
 
 const text = `
 Всем привет, С Вами <a href="https://www.youtube.com/watch?v=tneGZ6hM76c" target="_blank">Груша
@@ -7,7 +7,7 @@ const text = `
 
 export const model = [
     new TitleBlock('Quizlet-Killer', {
-        tag: 'h2',
+        tag: 'h1',
         styles: {
             background: 'linear-gradient(to right, #ff0099, #493240)',
             color: '#fff',
@@ -16,26 +16,14 @@ export const model = [
         }
     }),
 
-    new ImageBlock(image, {
-        styles: {
-            padding: '2rem 0',
-            display: 'flex',
-            'justify-content': 'center'
-        },
-        imageStyles: {
-            width: '500px',
-            height: 'auto'
-        },
-        alt: 'Its a picture'
-    }
-    ),// '.assets/image.png'
+
 
     new ColumnsBlock(
             [
-            'посмотреть свои курсы',
-            'создать тест',
-            'мои тесты',
-            'написать в поддержку'
+            'Посмотреть свои курсы',
+            'Создать тест',
+            'Мои тесты',
+            'Написать в поддержку'
         ], {
                 styles:
                     {
@@ -47,6 +35,8 @@ export const model = [
             }
     ),
 
+
+
     new TextBlock(text, {
             styles: {
                 background: 'linear-gradient(to left, #f2994a, #34e512)',
@@ -54,6 +44,35 @@ export const model = [
                 'font-weight': 'bold'
             }
         }
-    )
+    ),
+
+    new addCardBlock(text, {
+            styles: {
+                padding: '2rem',
+                'font-weight': 'bold'
+            }
+        }
+    ),
+
+    // new ImageBlock(image, {
+    //         styles: {
+    //             padding: '2rem 0',
+    //             display: 'flex',
+    //             'justify-content': 'center'
+    //         },
+    //         imageStyles: {
+    //             width: '500px',
+    //             height: 'auto'
+    //         },
+    //         alt: 'Its a picture'
+    //     }
+    // ),// '.assets/image.png'
+
+
 
 ]
+
+// document.getElementById('addCardButton').addEventListener('click', function () {
+//     // Assuming your `newcard` is a function that adds a card
+//     newcard();
+// });
